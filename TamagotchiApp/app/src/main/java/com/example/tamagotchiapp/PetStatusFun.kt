@@ -28,4 +28,16 @@ fun checkStatus(petStats: PetStatus){
         }
     }
 
+    when(petStats.boredom){
+        1 ->{
+            //not bored
+        }
+        2 ->{
+            //bored
+        }
+        3 ->{
+            //very bored
+        }
+    }
+
 }

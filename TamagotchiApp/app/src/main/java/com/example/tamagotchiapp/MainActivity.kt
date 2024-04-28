@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
@@ -15,7 +16,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val checkTextIfWorking = findViewById<TextView>(R.id.checkingText)
+        val titleHome = findViewById<TextView>(R.id.homeTitle)
+        val initBtn = findViewById<Button>(R.id.initBtn)
+
         sharedPreferences = this.getSharedPreferences(
             "com.example.tamagotchiapp",
             Context.MODE_PRIVATE)
@@ -23,14 +26,20 @@ class MainActivity : AppCompatActivity() {
 
         if(petName != ""){
 
-            val intent = Intent(this, PetInteraction::class.java)
+            titleHome.text = "Welcome Back, \n$petName \nmisses you"
 
-            startActivity(intent)
+            initBtn.text = "Continue"
+            initBtn.setOnClickListener{
+                val intent = Intent(this, PetInteraction::class.java)
+                startActivity(intent)
+            }
 
         }else{
-            val intent = Intent(this, InitPage::class.java)
+            initBtn.setOnClickListener {
+                val intent = Intent(this, InitPage::class.java)
 
-            startActivity(intent)
+                startActivity(intent)
+            }
         }
 
     }
