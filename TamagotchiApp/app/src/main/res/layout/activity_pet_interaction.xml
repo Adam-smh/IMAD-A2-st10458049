@@ -7,10 +7,13 @@
     tools:context=".PetInteraction">
 
     <TextView
+
+        android:id="@+id/petNameDis"
+
         android:layout_width="142dp"
         android:layout_height="47dp"
 
-        android:text="Nothing"
+        android:text=""
         android:textAlignment="center"
         android:textSize="30sp"
 

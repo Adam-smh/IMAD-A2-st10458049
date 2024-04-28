@@ -1,6 +1,7 @@
 package com.example.tamagotchiapp
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,14 +27,16 @@ class InitPage : AppCompatActivity() {
             Context.MODE_PRIVATE)
         petName = sharedPreferences.getString("pet_name", "")
 
-
         btnSubmitName.setOnClickListener{
             val newName = input.text.toString()
-
             if(newName == ""){
                 Toast.makeText(this,"Please enter valid name", Toast.LENGTH_LONG).show()
             }else{
                 sharedPreferences.edit().putString( "pet_name", newName).apply()
+
+                val intent = Intent(this, PetInteraction::class.java)
+
+                startActivity(intent)
             }
         }
     }
