@@ -22,4 +22,88 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+
+        android:id="@+id/feedBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+
+        android:layout_marginBottom="40dp"
+        android:text="Feed"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/cleanBtn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+
+        android:id="@+id/hungerStatus"
+
+        android:layout_width="163dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+
+        android:layout_marginBottom="40dp"
+        android:text="Placement"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/dirtyStatus"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/cleanBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="40dp"
+        android:text="Bath"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/playBtn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+
+        android:id="@+id/dirtyStatus"
+        android:layout_width="163dp"
+        android:layout_height="48dp"
+
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:text="Placement"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/boredomStatus"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+
+        android:text="Play"
+        android:textAlignment="center"
+        android:textSize="20sp"
+
+        android:id="@+id/playBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+
+        android:id="@+id/boredomStatus"
+        android:layout_width="163dp"
+        android:layout_height="48dp"
+
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:text="Placement"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
