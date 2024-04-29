@@ -10,8 +10,6 @@ import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var sharedPreferences: SharedPreferences
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         val titleHome = findViewById<TextView>(R.id.homeTitle)
         val initBtn = findViewById<Button>(R.id.initBtn)
 
-        sharedPreferences = this.getSharedPreferences(
+        var sharedPreferences: SharedPreferences = this.getSharedPreferences(
             "com.example.tamagotchiapp",
             Context.MODE_PRIVATE)
             var petName = sharedPreferences.getString("pet_name", "")

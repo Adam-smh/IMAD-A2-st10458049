@@ -14,9 +14,7 @@ import com.google.gson.Gson
 
 class InitPage : AppCompatActivity() {
 
-    lateinit var sharedPreferences: SharedPreferences
     var petName : String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_init_page)
@@ -26,7 +24,7 @@ class InitPage : AppCompatActivity() {
         val input = findViewById<EditText>(R.id.petNameIn)
         val btnSubmitName = findViewById<Button>(R.id.submitName)
 
-        sharedPreferences = this.getSharedPreferences(
+        var sharedPreferences: SharedPreferences = this.getSharedPreferences(
             "com.example.tamagotchiapp",
             Context.MODE_PRIVATE)
         petName = sharedPreferences.getString("pet_name", "")

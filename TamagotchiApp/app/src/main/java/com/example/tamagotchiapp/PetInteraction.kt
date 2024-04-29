@@ -3,17 +3,14 @@ package com.example.tamagotchiapp
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
-import org.w3c.dom.Text
-
 
 class PetInteraction : AppCompatActivity() {
-
-    lateinit var sharedPreferences: SharedPreferences
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_interaction)
@@ -26,7 +23,7 @@ class PetInteraction : AppCompatActivity() {
         val dirtyStat = findViewById<TextView>(R.id.dirtyStatus)
         val boredomStat = findViewById<TextView>(R.id.boredomStatus)
 
-        sharedPreferences = this.getSharedPreferences("com.example.tamagotchiapp",
+        var sharedPreferences: SharedPreferences = this.getSharedPreferences("com.example.tamagotchiapp",
             Context.MODE_PRIVATE)
 
         val gson = Gson()
@@ -82,21 +79,73 @@ class PetInteraction : AppCompatActivity() {
         }
         checkStatus(petStatus)
 
+        fun statSave(petStatus: PetStatus){
+
+            var sharedPreferences: SharedPreferences = this.getSharedPreferences("com.example.tamagotchiapp",
+                Context.MODE_PRIVATE)
+
+            val prefsEditor: SharedPreferences.Editor = sharedPreferences.edit()
+            val gson = Gson()
+            val json = gson.toJson(petStatus)
+            prefsEditor.putString("PetStatus", json)
+            prefsEditor.apply()
+        }
+
+        val timer = object: CountDownTimer(30000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+
+            }
+
+            override fun onFinish() {
+                if (petStatus.hunger != 3){
+                    petStatus.hunger++
+                }
+                if (petStatus.dirty != 3){
+                    petStatus.dirty++
+                }
+                if (petStatus.boredom != 3){
+                    petStatus.boredom++
+                }
+                checkStatus(petStatus)
+                statSave(petStatus)
+                this.start()
+            }
+        }
+        timer.start()
+
         feedBtn.setOnClickListener{
-            var res = feedPet(petStatus)
-            checkStatus(res)
+            if (petStatus.hunger != 1) {
+                var res = feedPet(petStatus)
+                checkStatus(res)
+                statSave(res)
+                timer.cancel()
+                timer.start()
+            }else{
+                Toast.makeText(this,"$petName is not hungry right now", Toast.LENGTH_LONG).show()
+            }
         }
         cleanBtn.setOnClickListener{
-            var res =cleanPet(petStatus)
-            checkStatus(res)
+            if (petStatus.dirty != 1){
+                var res = cleanPet(petStatus)
+                    checkStatus(res)
+                    statSave(res)
+                    timer.cancel()
+                    timer.start()
+            }else{
+                Toast.makeText(this,"$petName does not need a bath right now", Toast.LENGTH_LONG).show()
+            }
+
         }
         playBtn.setOnClickListener{
-            var res = playPet(petStatus)
-            checkStatus(res)
+            if (petStatus.boredom != 1){
+                var res = playPet(petStatus)
+                checkStatus(res)
+                statSave(res)
+                timer.cancel()
+                timer.start()
+            }else{
+                Toast.makeText(this,"$petName does not wanna play right now", Toast.LENGTH_LONG).show()
+            }
         }
     }
-
-
-
-
 }
