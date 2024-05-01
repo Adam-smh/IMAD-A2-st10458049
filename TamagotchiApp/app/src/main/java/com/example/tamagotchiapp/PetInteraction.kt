@@ -15,25 +15,30 @@ class PetInteraction : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_interaction)
 
+        //declare btn val
         val feedBtn = findViewById<Button>(R.id.feedBtn)
         val cleanBtn = findViewById<Button>(R.id.cleanBtn)
         val playBtn = findViewById<Button>(R.id.playBtn)
 
+        //declare text val
         val hungerStat = findViewById<TextView>(R.id.hungerStatus)
         val dirtyStat = findViewById<TextView>(R.id.dirtyStatus)
         val boredomStat = findViewById<TextView>(R.id.boredomStatus)
+        val petNameDis = findViewById<TextView>(R.id.petNameDis)
 
-        var sharedPreferences: SharedPreferences = this.getSharedPreferences("com.example.tamagotchiapp",
+        //sharedPreferences used to store data locally
+        val sharedPreferences: SharedPreferences = this.getSharedPreferences("com.example.tamagotchiapp",
             Context.MODE_PRIVATE)
 
+        //fetching petStatus from local storage using json
         val gson = Gson()
         val json: String? = sharedPreferences.getString("PetStatus", "")
         val petStatus: PetStatus = gson.fromJson(json, PetStatus::class.java)
 
+        //fetching petName from local storage
         var petName = sharedPreferences.getString("pet_name", "")
 
-        var petNameDis = findViewById<TextView>(R.id.petNameDis)
-
+        //displaying Pets name
         petNameDis.text = petName
 
         fun checkStatus(petStats: PetStatus){
@@ -79,21 +84,8 @@ class PetInteraction : AppCompatActivity() {
         }
         checkStatus(petStatus)
 
-        fun statSave(petStatus: PetStatus){
-
-            var sharedPreferences: SharedPreferences = this.getSharedPreferences("com.example.tamagotchiapp",
-                Context.MODE_PRIVATE)
-
-            val prefsEditor: SharedPreferences.Editor = sharedPreferences.edit()
-            val gson = Gson()
-            val json = gson.toJson(petStatus)
-            prefsEditor.putString("PetStatus", json)
-            prefsEditor.apply()
-        }
-
         val timer = object: CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-
             }
 
             override fun onFinish() {
@@ -107,7 +99,7 @@ class PetInteraction : AppCompatActivity() {
                     petStatus.boredom++
                 }
                 checkStatus(petStatus)
-                statSave(petStatus)
+                statSave(petStatus, sharedPreferences)
                 this.start()
             }
         }
@@ -117,7 +109,7 @@ class PetInteraction : AppCompatActivity() {
             if (petStatus.hunger != 1) {
                 var res = feedPet(petStatus)
                 checkStatus(res)
-                statSave(res)
+                statSave(res, sharedPreferences)
                 timer.cancel()
                 timer.start()
             }else{
@@ -127,20 +119,19 @@ class PetInteraction : AppCompatActivity() {
         cleanBtn.setOnClickListener{
             if (petStatus.dirty != 1){
                 var res = cleanPet(petStatus)
-                    checkStatus(res)
-                    statSave(res)
-                    timer.cancel()
-                    timer.start()
+                checkStatus(res)
+                statSave(res, sharedPreferences)
+                timer.cancel()
+                timer.start()
             }else{
                 Toast.makeText(this,"$petName does not need a bath right now", Toast.LENGTH_LONG).show()
             }
-
         }
         playBtn.setOnClickListener{
             if (petStatus.boredom != 1){
                 var res = playPet(petStatus)
                 checkStatus(res)
-                statSave(res)
+                statSave(res, sharedPreferences)
                 timer.cancel()
                 timer.start()
             }else{

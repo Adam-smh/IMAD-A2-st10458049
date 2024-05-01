@@ -14,16 +14,16 @@ import com.google.gson.Gson
 
 class InitPage : AppCompatActivity() {
 
-    var petName : String? = null
+    private var petName : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_init_page)
 
-        var petStatus : PetStatus
-
+        //declarations
         val input = findViewById<EditText>(R.id.petNameIn)
         val btnSubmitName = findViewById<Button>(R.id.submitName)
 
+        //sharedPreferences used to store data locally
         var sharedPreferences: SharedPreferences = this.getSharedPreferences(
             "com.example.tamagotchiapp",
             Context.MODE_PRIVATE)
@@ -34,18 +34,7 @@ class InitPage : AppCompatActivity() {
             if(newName == ""){
                 Toast.makeText(this,"Please enter valid name", Toast.LENGTH_LONG).show()
             }else{
-                sharedPreferences.edit().putString( "pet_name", newName).apply()
-
-                petStatus = PetStatus(
-                    hunger = 1,
-                    dirty = 1,
-                    boredom = 1
-                )
-                val prefsEditor: Editor = sharedPreferences.edit()
-                val gson = Gson()
-                val json = gson.toJson(petStatus)
-                prefsEditor.putString("PetStatus", json)
-                prefsEditor.apply()
+                namePet(newName, sharedPreferences)
 
                 val intent = Intent(this, PetInteraction::class.java)
 
