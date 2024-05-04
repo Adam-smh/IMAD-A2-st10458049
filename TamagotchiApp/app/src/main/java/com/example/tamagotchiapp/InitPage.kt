@@ -31,9 +31,10 @@ class InitPage : AppCompatActivity() {
 
         //button submits name verifies it and saves name locally
         btnSubmitName.setOnClickListener{
+
             val newName = input.text.toString()
-            if(newName == ""){
-                Toast.makeText(this,"Please enter valid name", Toast.LENGTH_LONG).show()
+            if(newName.length > 15 || newName.length < 3){
+                Toast.makeText(this,"Please enter valid name between 3 and 15 characters", Toast.LENGTH_LONG).show()
             }else{
                 namePet(newName, sharedPreferences)
 
