@@ -43,6 +43,8 @@
 
         android:text="Save"
 
+        android:backgroundTint="@color/btnBG"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

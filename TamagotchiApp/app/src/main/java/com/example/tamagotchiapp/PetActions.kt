@@ -1,24 +1,51 @@
 package com.example.tamagotchiapp
 
 import android.content.SharedPreferences
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.widget.ProgressBar
 import com.google.gson.Gson
 
+/*
+Pet actions used to either interact or manage pet stats
+ */
 
-//outOfRangeStats ensures that pet stats stays within the 1-3 range
-fun outOfRangeStats(petStatus: PetStatus): PetStatus {
+//range checker verifies if stats are within the 0 to 300 range
+fun rangeChecker(petStatus: PetStatus): PetStatus {
 
-    if (petStatus.hunger > 3){
-        petStatus.hunger = 3
-    }
-    if (petStatus.boredom > 3){
-        petStatus.boredom = 3
-    }
-    if (petStatus.dirty > 3){
-        petStatus.dirty = 3
-    }
+    petStatus.hunger = outOfRangeStats(petStatus.hunger)
+    petStatus.clean = outOfRangeStats(petStatus.clean)
+    petStatus.boredom = outOfRangeStats(petStatus.boredom)
     return petStatus
 }
 
+//fun used to determine what is displayed to represent pet stats
+fun checkStatus(stat: Int, barId: ProgressBar) :ResModel{
+
+    var text: String
+    var barNum = stat
+
+    when{
+
+         stat > 200 ->{
+             //sets stat text
+             text = "Good"
+             //sets progress bar color
+             barId.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        }
+        stat > 100  ->{
+            text = "Okay"
+            barId.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+        }
+        else->{
+            text = "Bad"
+            barId.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        }
+    }
+    return ResModel(text, barNum)
+}
+
+//saves pets stats locally to ensure when app is reopened stats stay static
 fun statSave(petStatus: PetStatus, sharedPreferences: SharedPreferences){
 
     val prefsEditor: SharedPreferences.Editor = sharedPreferences.edit()
@@ -28,14 +55,15 @@ fun statSave(petStatus: PetStatus, sharedPreferences: SharedPreferences){
     prefsEditor.apply()
 }
 
+//fun used to name pet and save name locally
 fun namePet(name: String, sharedPreferences: SharedPreferences){
 
     sharedPreferences.edit().putString( "pet_name", name).apply()
 
-    val petStatus : PetStatus = PetStatus(
-        hunger = 1,
-        dirty = 1,
-        boredom = 1
+    val petStatus = PetStatus(
+        hunger = 300,
+        clean = 300,
+        boredom = 300
     )
     val prefsEditor: SharedPreferences.Editor = sharedPreferences.edit()
     val gson = Gson()
@@ -44,33 +72,33 @@ fun namePet(name: String, sharedPreferences: SharedPreferences){
     prefsEditor.apply()
 }
 
+//fun used to feed pet
 fun feedPet(petStatus: PetStatus): PetStatus {
-
-    outOfRangeStats(petStatus)
-    if (petStatus.hunger != 1){
-        petStatus.hunger--
-        petStatus.dirty++
+    if (petStatus.hunger != 300){
+        petStatus.hunger = petStatus.hunger + 100
+        petStatus.clean = petStatus.clean - 50
     }
+    rangeChecker(petStatus)
     return petStatus
 }
 
+//fun used to clean pet
 fun cleanPet(petStatus: PetStatus): PetStatus {
 
-    outOfRangeStats(petStatus)
-    if(petStatus.dirty != 1){
-        petStatus.dirty = 1
+    if(petStatus.clean != 300){
+        petStatus.clean = 300
     }
+    rangeChecker(petStatus)
     return petStatus
 }
 
+//fun used to play with pet
 fun playPet(petStatus: PetStatus): PetStatus {
-
-    outOfRangeStats(petStatus)
-    if (petStatus.boredom != 1){
-        petStatus.boredom--
-        petStatus.dirty++
-        petStatus.hunger++
+    if (petStatus.boredom != 300){
+        petStatus.boredom = petStatus.boredom + 100
+        petStatus.clean = petStatus.clean - 100
+        petStatus.hunger = petStatus.hunger - 50
     }
-
+    rangeChecker(petStatus)
     return petStatus
 }

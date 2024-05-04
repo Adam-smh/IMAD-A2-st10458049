@@ -2,9 +2,12 @@ package com.example.tamagotchiapp
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +29,11 @@ class PetInteraction : AppCompatActivity() {
         val boredomStat = findViewById<TextView>(R.id.boredomStatus)
         val petNameDis = findViewById<TextView>(R.id.petNameDis)
 
+        //declare progress bar val
+        val hungerBar = findViewById<ProgressBar>(R.id.hungerBar)
+        val stinkyBar = findViewById<ProgressBar>(R.id.stinkyBar)
+        val boredBar = findViewById<ProgressBar>(R.id.boredBar)
+
         //sharedPreferences used to store data locally
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("com.example.tamagotchiapp",
             Context.MODE_PRIVATE)
@@ -41,74 +49,52 @@ class PetInteraction : AppCompatActivity() {
         //displaying Pets name
         petNameDis.text = petName
 
-        fun checkStatus(petStats: PetStatus){
+        //function used for displaying stats
+        fun statDis(petStatus: PetStatus){
+            var hungerRes = checkStatus(petStatus.hunger, hungerBar)
+            var dirtyRes = checkStatus(petStatus.clean, stinkyBar)
+            var boredRes = checkStatus(petStatus.boredom, boredBar)
 
-            when(petStats.hunger){
+            //stat text
+            hungerStat.text = hungerRes.text
+            dirtyStat.text = dirtyRes.text
+            boredomStat.text = boredRes.text
 
-                1 ->{
-                    hungerStat.text = "Not Hungry"
-                }
-                2 ->{
-                    hungerStat.text = "Hungry"
-                }
-                3 ->{
-                    hungerStat.text = "Starving"
-                }
-            }
-
-            when(petStats.dirty){
-
-                1 ->{
-                    dirtyStat.text = "Clean"
-                }
-                2 ->{
-                    dirtyStat.text = "Messy"
-                }
-                3 ->{
-                    dirtyStat.text = "Dirty"
-                }
-            }
-
-            when(petStats.boredom){
-                1 ->{
-                    boredomStat.text = "Happy"
-                }
-                2 ->{
-                    boredomStat.text = "Okay"
-                }
-                3 ->{
-                    boredomStat.text = "Bored"
-                }
-            }
-
+            //stat progress bar
+            hungerBar.progress = hungerRes.barNum
+            stinkyBar.progress = dirtyRes.barNum
+            boredBar.progress = boredRes.barNum
         }
-        checkStatus(petStatus)
 
+
+        //timer used to depreciate stats over time
         val timer = object: CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
             }
 
             override fun onFinish() {
-                if (petStatus.hunger != 3){
-                    petStatus.hunger++
+
+                if (petStatus.hunger != 0){
+                    petStatus.hunger = petStatus.hunger - 50
                 }
-                if (petStatus.dirty != 3){
-                    petStatus.dirty++
+                if (petStatus.clean != 0){
+                    petStatus.clean = petStatus.clean - 50
                 }
-                if (petStatus.boredom != 3){
-                    petStatus.boredom++
+                if (petStatus.boredom != 0){
+                    petStatus.boredom = petStatus.boredom - 50
                 }
-                checkStatus(petStatus)
+                statDis(petStatus)
                 statSave(petStatus, sharedPreferences)
                 this.start()
             }
         }
         timer.start()
 
+        //button used to feed pet
         feedBtn.setOnClickListener{
             if (petStatus.hunger != 1) {
                 var res = feedPet(petStatus)
-                checkStatus(res)
+                statDis(res)
                 statSave(res, sharedPreferences)
                 timer.cancel()
                 timer.start()
@@ -116,10 +102,12 @@ class PetInteraction : AppCompatActivity() {
                 Toast.makeText(this,"$petName is not hungry right now", Toast.LENGTH_LONG).show()
             }
         }
+
+        //button used to clean pet
         cleanBtn.setOnClickListener{
-            if (petStatus.dirty != 1){
+            if (petStatus.clean != 1){
                 var res = cleanPet(petStatus)
-                checkStatus(res)
+                statDis(res)
                 statSave(res, sharedPreferences)
                 timer.cancel()
                 timer.start()
@@ -127,10 +115,12 @@ class PetInteraction : AppCompatActivity() {
                 Toast.makeText(this,"$petName does not need a bath right now", Toast.LENGTH_LONG).show()
             }
         }
+
+        //-button used to play with pet
         playBtn.setOnClickListener{
             if (petStatus.boredom != 1){
                 var res = playPet(petStatus)
-                checkStatus(res)
+                statDis(res)
                 statSave(res, sharedPreferences)
                 timer.cancel()
                 timer.start()

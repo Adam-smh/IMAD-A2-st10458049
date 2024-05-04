@@ -29,6 +29,7 @@ class InitPage : AppCompatActivity() {
             Context.MODE_PRIVATE)
         petName = sharedPreferences.getString("pet_name", "")
 
+        //button submits name verifies it and saves name locally
         btnSubmitName.setOnClickListener{
             val newName = input.text.toString()
             if(newName == ""){

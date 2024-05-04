@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PetInteraction"
-    android:background="@drawable/gatchaBG2DayCrop"
+    android:background="@drawable/bg_day"
     >
 
     <com.google.android.material.card.MaterialCardView
@@ -77,16 +77,33 @@
 
                 android:id="@+id/hungerStatus"
 
-                android:layout_width="163dp"
-                android:layout_height="48dp"
+                android:layout_width="111dp"
+                android:layout_height="19dp"
 
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="44dp"
                 android:text="Placement"
                 android:textAlignment="center"
-                android:textSize="30sp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+
+                android:id="@+id/hungerBar"
+                style="?android:attr/progressBarStyleHorizontal"
+
+                android:scaleY="3"
+                android:layout_width="164dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+
+                android:max="300"
+                android:min="1"
+                android:progress="150"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hungerStatus" />
 
             <Button
 
@@ -108,22 +125,36 @@
                 app:layout_constraintVertical_bias="0.393" />
 
 
-
             <TextView
 
                 android:id="@+id/dirtyStatus"
-                android:layout_width="163dp"
-                android:layout_height="48dp"
+                android:layout_width="111dp"
+                android:layout_height="19dp"
 
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="44dp"
                 android:text="Placement"
                 android:textAlignment="center"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toTopOf="@+id/boredomStatus"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hungerStatus"
-                app:layout_constraintVertical_bias="0.245" />
+                app:layout_constraintTop_toBottomOf="@+id/hungerBar" />
+
+
+            <ProgressBar
+
+                android:id="@+id/stinkyBar"
+                style="?android:attr/progressBarStyleHorizontal"
+
+                android:layout_width="164dp"
+                android:scaleY="3"
+                android:layout_height="21dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:max="300"
+                android:min="1"
+                android:progress="300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dirtyStatus" />
 
             <Button
 
@@ -132,8 +163,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-
                 android:layout_marginBottom="16dp"
+
                 android:backgroundTint="@color/btnBG"
                 android:text="Play"
                 android:textAlignment="center"
@@ -141,36 +172,36 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <ProgressBar
+
+                android:id="@+id/boredBar"
+                style="?android:attr/progressBarStyleHorizontal"
+
+                android:layout_width="164dp"
+                android:scaleY="3"
+                android:layout_height="21dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:max="300"
+                android:min="1"
+                android:progress="0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/boredomStatus" />
 
             <TextView
 
                 android:id="@+id/boredomStatus"
-                android:layout_width="163dp"
-                android:layout_height="48dp"
+                android:layout_width="111dp"
+                android:layout_height="19dp"
 
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="44dp"
+                android:layout_marginBottom="44dp"
                 android:text="Placement"
                 android:textAlignment="center"
-                android:textSize="30sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <ProgressBar
-
-                android:max="3"
-                android:min="1"
-
-                android:progress="2"
-
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="158dp"
-                android:layout_height="18dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintBottom_toTopOf="@+id/dirtyStatus"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hungerStatus" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
