@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="cardBG">#E0FBFC</color>
+    <color name="btnBG">#EE6C4D</color>
+    <color name="midStat">#FF8200</color>
+    <color name="lowStat">#FF0000</color>
+</resources>

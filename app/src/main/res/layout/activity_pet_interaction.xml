@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PetInteraction"
+    android:background="@drawable/bg_day"
+    >
+
+    <com.google.android.material.card.MaterialCardView
+        app:shapeAppearanceOverlay="@style/topCut"
+        app:cardBackgroundColor="@color/cardBG"
+        app:strokeWidth="0dp"
+        android:layout_width="415dp"
+        android:layout_height="99dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:id="@+id/petNameDis"
+
+                android:layout_width="314dp"
+                android:layout_height="47dp"
+
+                android:text="{petname}"
+                android:textAlignment="center"
+                android:textSize="30sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:id="@+id/catImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/artboard_1" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
+        android:layout_width="match_parent"
+        android:layout_height="271dp"
+        app:cardBackgroundColor="@color/cardBG"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/botCut"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+
+                android:id="@+id/feedBtn"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/btnBG"
+                android:text="Feed"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+
+                android:id="@+id/hungerStatus"
+
+                android:layout_width="111dp"
+                android:layout_height="19dp"
+
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="44dp"
+                android:text="Placement"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+
+                android:id="@+id/hungerBar"
+                style="?android:attr/progressBarStyleHorizontal"
+
+                android:layout_width="164dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:max="300"
+
+                android:min="1"
+                android:progress="150"
+                android:scaleY="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hungerStatus" />
+
+            <Button
+
+                android:id="@+id/cleanBtn"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/btnBG"
+
+                android:text="Bath"
+                android:textAlignment="center"
+                android:textSize="20sp"
+
+                app:layout_constraintBottom_toTopOf="@+id/playBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/feedBtn"
+                app:layout_constraintVertical_bias="0.393" />
+
+
+            <TextView
+
+                android:id="@+id/dirtyStatus"
+                android:layout_width="111dp"
+                android:layout_height="19dp"
+
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="44dp"
+                android:text="Placement"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hungerBar" />
+
+
+            <ProgressBar
+
+                android:id="@+id/stinkyBar"
+                style="?android:attr/progressBarStyleHorizontal"
+
+                android:layout_width="164dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:max="300"
+                android:min="1"
+                android:progress="300"
+                android:scaleY="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dirtyStatus" />
+
+            <Button
+
+                android:id="@+id/playBtn"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+
+                android:backgroundTint="@color/btnBG"
+                android:text="Play"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ProgressBar
+
+                android:id="@+id/boredBar"
+                style="?android:attr/progressBarStyleHorizontal"
+
+                android:layout_width="164dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:max="300"
+                android:min="1"
+                android:progress="0"
+                android:scaleY="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/boredomStatus" />
+
+            <TextView
+
+                android:id="@+id/boredomStatus"
+                android:layout_width="111dp"
+                android:layout_height="19dp"
+
+                android:layout_marginEnd="44dp"
+                android:layout_marginBottom="44dp"
+                android:text="Placement"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
