@@ -57,7 +57,7 @@ fun petActionImgSet(action: String): Int {
             imgState = R.drawable.artboard_10_copy
         }
         "playing" -> {
-            imgState = R.drawable.artboard_4
+            imgState = R.drawable.artboard_20
         }
     }
 
@@ -78,7 +78,7 @@ fun petIdolImgSet(petStatus: PetStatus): Int {
         imgStat = R.drawable.artboard_6
     }else if(hunger >= 100 && bored >= 100 && dirty < 100){
         imgStat = R.drawable.artboard_10
-    }else if(hunger < 100 && bored < 100 && dirty < 100) {
+    }else if(hunger < 150 && bored < 150 && dirty < 150) {
         imgStat = R.drawable.artboard_3
     }else{
         imgStat = R.drawable.artboard_1

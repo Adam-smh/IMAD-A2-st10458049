@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         Button redirects user to PetInteraction screen*/
         if(petName != ""){
 
-            titleHome.text = "Welcome Back, \n$petName \nmisses you"
+            titleHome.text = "Welcome Back,\n$petName \nmisses you"
             initBtn.text = "Continue"
             initBtn.setOnClickListener{
                 val intent = Intent(this, PetInteraction::class.java)
@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         /*If name has not been set, initial welcome screen will be displayed.
         Button will redirect user to InitPage*/
         }else{
+            titleHome.text = "Welcome to PetSim, \n you have a new pet!"
             initBtn.setOnClickListener {
                 val intent = Intent(this, InitPage::class.java)
 
