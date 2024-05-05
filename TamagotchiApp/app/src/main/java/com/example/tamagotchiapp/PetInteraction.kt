@@ -7,16 +7,21 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 
 class PetInteraction : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_interaction)
+
+        //img placeHolder
+        var actImg: Int
 
         //declare btn val
         val feedBtn = findViewById<Button>(R.id.feedBtn)
@@ -33,6 +38,9 @@ class PetInteraction : AppCompatActivity() {
         val hungerBar = findViewById<ProgressBar>(R.id.hungerBar)
         val stinkyBar = findViewById<ProgressBar>(R.id.stinkyBar)
         val boredBar = findViewById<ProgressBar>(R.id.boredBar)
+
+        //cat image dec
+        val catImg = findViewById<ImageView>(R.id.catImg)
 
         //sharedPreferences used to store data locally
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("com.example.tamagotchiapp",
@@ -54,6 +62,10 @@ class PetInteraction : AppCompatActivity() {
             var hungerRes = checkStatus(petStatus.hunger, hungerBar)
             var dirtyRes = checkStatus(petStatus.clean, stinkyBar)
             var boredRes = checkStatus(petStatus.boredom, boredBar)
+            var idolImgSet = petIdolImgSet(petStatus)
+
+            //setting idol image state
+            catImg.setImageDrawable(ContextCompat.getDrawable(this, idolImgSet))
 
             //stat text
             hungerStat.text = hungerRes.text
@@ -65,7 +77,23 @@ class PetInteraction : AppCompatActivity() {
             stinkyBar.progress = dirtyRes.barNum
             boredBar.progress = boredRes.barNum
         }
+        statDis(petStatus)
 
+        fun petImgAni(petStatus: PetStatus, actImg: Int){
+
+            catImg.setImageDrawable(ContextCompat.getDrawable(this, actImg))
+
+            val aniTimer = object: CountDownTimer(2800, 10000) {
+                override fun onTick(millisUntilFinished: Long) {
+                }
+
+                override fun onFinish() {
+                    statDis(petStatus)
+                    statSave(petStatus, sharedPreferences)
+                }
+            }
+            aniTimer.start()
+        }
 
         //timer used to depreciate stats over time
         val timer = object: CountDownTimer(30000, 1000) {
@@ -92,10 +120,10 @@ class PetInteraction : AppCompatActivity() {
 
         //button used to feed pet
         feedBtn.setOnClickListener{
-            if (petStatus.hunger != 1) {
+            if (petStatus.hunger != 300) {
                 var res = feedPet(petStatus)
-                statDis(res)
-                statSave(res, sharedPreferences)
+                actImg = petActionImgSet("eating")
+                petImgAni(res, actImg)
                 timer.cancel()
                 timer.start()
             }else{
@@ -105,10 +133,10 @@ class PetInteraction : AppCompatActivity() {
 
         //button used to clean pet
         cleanBtn.setOnClickListener{
-            if (petStatus.clean != 1){
+            if (petStatus.clean != 300){
                 var res = cleanPet(petStatus)
-                statDis(res)
-                statSave(res, sharedPreferences)
+                actImg = petActionImgSet("cleaning")
+                petImgAni(res, actImg)
                 timer.cancel()
                 timer.start()
             }else{
@@ -118,10 +146,10 @@ class PetInteraction : AppCompatActivity() {
 
         //-button used to play with pet
         playBtn.setOnClickListener{
-            if (petStatus.boredom != 1){
+            if (petStatus.boredom != 300){
                 var res = playPet(petStatus)
-                statDis(res)
-                statSave(res, sharedPreferences)
+                actImg = petActionImgSet("playing")
+                petImgAni(res, actImg)
                 timer.cancel()
                 timer.start()
             }else{

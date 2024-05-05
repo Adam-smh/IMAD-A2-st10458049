@@ -4,34 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_day"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/homeTitle"
-        android:layout_width="345dp"
-        android:layout_height="110dp"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="412dp"
+        android:layout_height="191dp"
 
-        android:text="Welcome to PetSim"
-        android:textAlignment="center"
-        android:textSize="30sp"
+        app:cardBackgroundColor="@color/cardBG"
 
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.219" />
+        app:shapeAppearanceOverlay="@style/topCut"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/homeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:text="Welcome to PetSim,"
+                android:textAlignment="center"
+                android:textSize="30sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/artboard2" />
 
     <Button
         android:id="@+id/initBtn"
 
         android:layout_width="131dp"
         android:layout_height="56dp"
-        android:layout_marginEnd="140dp"
-        android:layout_marginBottom="292dp"
+        android:layout_marginBottom="84dp"
 
+        android:backgroundTint="@color/btnBG"
         android:text="Get Started"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

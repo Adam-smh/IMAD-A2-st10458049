@@ -45,6 +45,48 @@ fun checkStatus(stat: Int, barId: ProgressBar) :ResModel{
     return ResModel(text, barNum)
 }
 
+fun petActionImgSet(action: String): Int {
+
+    var imgState = R.drawable.artboard_1
+
+    when(action){
+        "eating" -> {
+            imgState = R.drawable.artboard_8
+        }
+        "cleaning" -> {
+            imgState = R.drawable.artboard_10_copy
+        }
+        "playing" -> {
+            imgState = R.drawable.artboard_4
+        }
+    }
+
+    return imgState
+}
+
+fun petIdolImgSet(petStatus: PetStatus): Int {
+
+    val hunger = petStatus.hunger
+    val dirty = petStatus.clean
+    val bored = petStatus.boredom
+
+    var imgStat: Int
+
+    if(hunger < 100 && bored >= 100 && dirty >= 100){
+        imgStat = R.drawable.artboard_7
+    }else if(hunger >= 100 && bored < 100 && dirty >= 100){
+        imgStat = R.drawable.artboard_6
+    }else if(hunger >= 100 && bored >= 100 && dirty < 100){
+        imgStat = R.drawable.artboard_10
+    }else if(hunger < 100 && bored < 100 && dirty < 100) {
+        imgStat = R.drawable.artboard_3
+    }else{
+        imgStat = R.drawable.artboard_1
+    }
+
+    return imgStat
+}
+
 //saves pets stats locally to ensure when app is reopened stats stay static
 fun statSave(petStatus: PetStatus, sharedPreferences: SharedPreferences){
 
